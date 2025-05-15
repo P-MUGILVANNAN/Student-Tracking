@@ -12,10 +12,10 @@ export default function Dashboard() {
     const token = localStorage.getItem('token');
 
     Promise.all([
-      axios.get('http://localhost:5000/api/admin/profile', {
+      axios.get('https://student-tracking-e3tk.onrender.com/api/admin/profile', {
         headers: { Authorization: `Bearer ${token}` }
       }),
-      axios.get('http://localhost:5000/api/courses', {
+      axios.get('https://student-tracking-e3tk.onrender.com/api/courses', {
         headers: { Authorization: `Bearer ${token}` }
       })
     ])
@@ -33,7 +33,7 @@ export default function Dashboard() {
   const handleDeleteCourse = (id) => {
     if (!window.confirm('Are you sure you want to delete this course?')) return;
 
-    axios.delete(`http://localhost:5000/api/courses/${id}`, {
+    axios.delete(`https://student-tracking-e3tk.onrender.com/api/courses/${id}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     })
       .then(() => {

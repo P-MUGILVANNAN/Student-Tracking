@@ -28,7 +28,7 @@ const AddStudent = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/courses', {
+        const res = await axios.get('https://student-tracking-e3tk.onrender.com/api/courses', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -95,7 +95,7 @@ const AddStudent = () => {
 
     try {
       // 1. Create student
-      const createRes = await axios.post('http://localhost:5000/api/auth/signup', {
+      const createRes = await axios.post('https://student-tracking-e3tk.onrender.com/api/auth/signup', {
         ...formData,
         role: 'student',
       });
@@ -103,7 +103,7 @@ const AddStudent = () => {
       const studentId = createRes.data.user.id;
 
       // 2. Enroll student in selected course
-      await axios.post('http://localhost:5000/api/admin/enroll', {
+      await axios.post('https://student-tracking-e3tk.onrender.com/api/admin/enroll', {
         studentId,
         courseId: formData.courseId,
         daysData: [],

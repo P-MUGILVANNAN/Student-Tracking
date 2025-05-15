@@ -15,7 +15,7 @@ const AttendancePage = () => {
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/admin/students', {
+        const response = await axios.get('https://student-tracking-e3tk.onrender.com/api/admin/students', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -80,7 +80,7 @@ const AttendancePage = () => {
       };
 
       const response = await axios.post(
-        'http://localhost:5000/api/attendance',
+        'https://student-tracking-e3tk.onrender.com/api/attendance',
         attendanceData,
         {
           headers: {

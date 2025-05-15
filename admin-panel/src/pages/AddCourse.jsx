@@ -18,7 +18,7 @@ export default function AddCourse() {
     e.preventDefault();
     setLoading(true);
 
-    axios.post('http://localhost:5000/api/courses', course, {
+    axios.post('https://student-tracking-e3tk.onrender.com/api/courses', course, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }

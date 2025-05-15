@@ -8,7 +8,7 @@ const EditCourse = () => {
   const [course, setCourse] = useState({ title: '', duration: '' });
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/courses/${id}`, {
+    axios.get(`https://student-tracking-e3tk.onrender.com/api/courses/${id}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
@@ -27,7 +27,7 @@ const EditCourse = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios.put(`http://localhost:5000/api/courses/${id}`, course, {
+    axios.put(`https://student-tracking-e3tk.onrender.com/api/courses/${id}`, course, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }

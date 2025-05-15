@@ -16,12 +16,12 @@ export default function AssessmentView() {
     const fetchData = async () => {
       try {
         const [assessmentRes, submissionRes] = await Promise.all([
-          axios.get(`http://localhost:5000/api/assessment/${id}`, {
+          axios.get(`https://student-tracking-e3tk.onrender.com/api/assessment/${id}`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
           }),
-          axios.get(`http://localhost:5000/api/assessment/${id}/submissions`, {
+          axios.get(`https://student-tracking-e3tk.onrender.com/api/assessment/${id}/submissions`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('token')}`,
             },

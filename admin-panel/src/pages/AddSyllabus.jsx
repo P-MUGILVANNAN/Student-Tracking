@@ -15,7 +15,7 @@ const AddSyllabus = () => {
     useEffect(() => {
         const fetchCourses = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/courses', {
+                const response = await axios.get('https://student-tracking-e3tk.onrender.com/api/courses', {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
                     }
@@ -52,7 +52,7 @@ const AddSyllabus = () => {
           formData.append('courseId', selectedCourse);
           formData.append('syllabus', syllabusFile);
       
-          await axios.post('http://localhost:5000/api/syllabus', formData, {
+          await axios.post('https://student-tracking-e3tk.onrender.com/api/syllabus', formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
               Authorization: `Bearer ${localStorage.getItem('token')}`

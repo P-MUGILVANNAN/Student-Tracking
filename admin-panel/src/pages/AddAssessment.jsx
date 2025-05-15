@@ -78,7 +78,7 @@ const AddAssessment = () => {
     };
 
     try {
-      await axios.post('http://localhost:5000/api/assessments', assessmentData, {
+      await axios.post('https://student-tracking-e3tk.onrender.com/api/assessments', assessmentData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }

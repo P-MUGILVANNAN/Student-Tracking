@@ -13,7 +13,7 @@ export default function Students() {
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/admin/students', {
+        const res = await axios.get('https://student-tracking-e3tk.onrender.com/api/admin/students', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -31,7 +31,7 @@ export default function Students() {
 
   const fetchAttendance = async (studentId) => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/attendance/student/${studentId}`, {
+      const res = await axios.get(`https://student-tracking-e3tk.onrender.com/api/attendance/student/${studentId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },

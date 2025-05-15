@@ -12,7 +12,7 @@ export default function AdminCourseContentUploader() {
   useEffect(() => {
     const fetchCoursesFromProfile = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/courses', {
+        const res = await axios.get('https://student-tracking-e3tk.onrender.com/api/courses', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
           }
@@ -54,7 +54,7 @@ export default function AdminCourseContentUploader() {
     formData.append('file', file);
 
     try {
-      await axios.post('http://localhost:5000/api/admin/course-content',
+      await axios.post('https://student-tracking-e3tk.onrender.com/api/admin/course-content',
         formData,
         {
           headers: {

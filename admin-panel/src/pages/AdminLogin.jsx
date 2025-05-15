@@ -13,7 +13,7 @@ export default function AdminLogin() {
     setLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/admin/login', { email, password });
+      const response = await axios.post('https://student-tracking-e3tk.onrender.com/api/admin/login', { email, password });
       const { token } = response.data;
       localStorage.setItem('token', token);
       console.log('Login successful. Navigating to /admin...');

@@ -28,7 +28,7 @@ const AddProject = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.post(`http://localhost:5000/api/projects`, {
+      await axios.post(`https://student-tracking-e3tk.onrender.com/api/projects`, {
         ...formData,
         course: courseId
       }, {

@@ -15,7 +15,7 @@ export default function UpdateProfile() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/admin/profile', {
+    axios.get('https://student-tracking-e3tk.onrender.com/api/admin/profile', {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
@@ -45,7 +45,7 @@ export default function UpdateProfile() {
     e.preventDefault();
     setIsSubmitting(true);
     
-    axios.put('http://localhost:5000/api/admin/profile', adminData, {
+    axios.put('https://student-tracking-e3tk.onrender.com/api/admin/profile', adminData, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }

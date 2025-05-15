@@ -15,12 +15,12 @@ export default function StudentView() {
     const fetchData = async () => {
       try {
         // Fetch student data
-        const studentRes = await axios.get(`http://localhost:5000/api/admin/student/${id}`, {
+        const studentRes = await axios.get(`https://student-tracking-e3tk.onrender.com/api/admin/student/${id}`, {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         });
 
         // Fetch project submissions separately
-        const projectsRes = await axios.get(`http://localhost:5000/api/project-submissions/student/${id}`, {
+        const projectsRes = await axios.get(`https://student-tracking-e3tk.onrender.com/api/project-submissions/student/${id}`, {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         });
 

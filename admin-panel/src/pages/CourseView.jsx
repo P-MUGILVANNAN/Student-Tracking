@@ -33,16 +33,16 @@ const CourseView = () => {
         const fetchData = async () => {
             try {
                 const [syllabusRes, contentRes, assessmentRes, projectsRes] = await Promise.all([
-                    axios.get(`http://localhost:5000/api/syllabus/${courseId}`, {
+                    axios.get(`https://student-tracking-e3tk.onrender.com/api/syllabus/${courseId}`, {
                         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
                     }),
-                    axios.get(`http://localhost:5000/api/admin/course-content/${courseId}`, {
+                    axios.get(`https://student-tracking-e3tk.onrender.com/api/admin/course-content/${courseId}`, {
                         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
                     }),
-                    axios.get(`http://localhost:5000/api/assessments/${courseId}`, {
+                    axios.get(`https://student-tracking-e3tk.onrender.com/api/assessments/${courseId}`, {
                         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
                     }),
-                    axios.get(`http://localhost:5000/api/projects/course/${courseId}`, {
+                    axios.get(`https://student-tracking-e3tk.onrender.com/api/projects/course/${courseId}`, {
                         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
                     })
                 ]);
@@ -90,7 +90,7 @@ const CourseView = () => {
     const handleUpdateProject = async () => {
         try {
             const updatedProject = await axios.put(
-                `http://localhost:5000/api/projects/${selectedProject._id}`,
+                `https://student-tracking-e3tk.onrender.com/api/projects/${selectedProject._id}`,
                 editFormData,
                 {
                     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
@@ -145,7 +145,7 @@ const CourseView = () => {
 
         setDeleting(true);
         try {
-            await axios.delete(`http://localhost:5000/api/syllabus/${syllabus._id}`, {
+            await axios.delete(`https://student-tracking-e3tk.onrender.com/api/syllabus/${syllabus._id}`, {
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
             });
             setSyllabus(null);
@@ -164,7 +164,7 @@ const CourseView = () => {
         }
 
         try {
-            await axios.delete(`http://localhost:5000/api/projects/${projectId}`, {
+            await axios.delete(`https://student-tracking-e3tk.onrender.com/api/projects/${projectId}`, {
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
             });
 
