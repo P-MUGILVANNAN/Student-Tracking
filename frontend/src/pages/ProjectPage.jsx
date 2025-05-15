@@ -19,7 +19,7 @@ const ProjectPage = () => {
   useEffect(() => {
     const fetchProject = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/projects/${projectId}`, {
+        const response = await axios.get(`https://student-tracking-e3tk.onrender.com/api/projects/${projectId}`, {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         });
         setProject(response.data);
@@ -56,7 +56,7 @@ const ProjectPage = () => {
     }
 
     try {
-      await axios.post(`http://localhost:5000/api/project-submissions`, {
+      await axios.post(`https://student-tracking-e3tk.onrender.com/api/project-submissions`, {
         projectId, // Add projectId to the request body
         githubLink: submission.githubLink,
         liveLink: submission.liveLink,

@@ -15,7 +15,7 @@ const AssessmentPage = () => {
     useEffect(() => {
         const fetchAssessment = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/api/assessment/${assessmentId}`, {
+                const res = await axios.get(`https://student-tracking-e3tk.onrender.com/api/assessment/${assessmentId}`, {
                     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
                 });
                 setAssessment(res.data);
@@ -86,7 +86,7 @@ const AssessmentPage = () => {
     
         try {
             await axios.post(
-                `http://localhost:5000/api/assessment/${assessmentId}/submit`,
+                `https://student-tracking-e3tk.onrender.com/api/assessment/${assessmentId}/submit`,
                 { answers: transformedAnswers },
                 {
                     headers: {

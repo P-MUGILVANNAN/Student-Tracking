@@ -63,7 +63,7 @@ const Dashboard = () => {
 
     const fetchAttendanceData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/attendance/student/${studentId}`, {
+        const response = await axios.get(`https://student-tracking-e3tk.onrender.com/api/attendance/student/${studentId}`, {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         });
 
@@ -105,7 +105,7 @@ const Dashboard = () => {
 
     const fetchProjectData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/project-submissions/student/${studentId}`, {
+        const response = await axios.get(`https://student-tracking-e3tk.onrender.com/api/project-submissions/student/${studentId}`, {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         });
 

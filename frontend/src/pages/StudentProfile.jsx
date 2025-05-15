@@ -19,7 +19,7 @@ export default function StudentProfile() {
   }, []);
 
   const fetchProfile = () => {
-    axios.get('http://localhost:5000/api/auth/profile', {
+    axios.get('https://student-tracking-e3tk.onrender.com/api/auth/profile', {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
@@ -74,7 +74,7 @@ export default function StudentProfile() {
     try {
       setEditMessage('');
       const response = await axios.put(
-        'http://localhost:5000/api/auth/profile',
+        'https://student-tracking-e3tk.onrender.com/api/auth/profile',
         {
           name: editFormData.name,
           email: editFormData.email,

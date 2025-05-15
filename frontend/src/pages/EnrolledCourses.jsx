@@ -8,7 +8,7 @@ export default function EnrolledCourses() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/auth/profile', {
+    axios.get('https://student-tracking-e3tk.onrender.com/api/auth/profile', {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }

@@ -17,16 +17,16 @@ export default function CourseView() {
     const fetchData = async () => {
       try {
         const [syllabusRes, contentRes, assessmentsRes, projectsRes] = await Promise.all([
-          axios.get(`http://localhost:5000/api/syllabus/${courseId}`, {
+          axios.get(`https://student-tracking-e3tk.onrender.com/api/syllabus/${courseId}`, {
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
           }),
-          axios.get(`http://localhost:5000/api/admin/course-content/${courseId}`, {
+          axios.get(`https://student-tracking-e3tk.onrender.com/api/admin/course-content/${courseId}`, {
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
           }),
-          axios.get(`http://localhost:5000/api/assessments/${courseId}`, {
+          axios.get(`https://student-tracking-e3tk.onrender.com/api/assessments/${courseId}`, {
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
           }),
-          axios.get(`http://localhost:5000/api/projects/course/${courseId}`, {
+          axios.get(`https://student-tracking-e3tk.onrender.com/api/projects/course/${courseId}`, {
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
           })
         ]);
