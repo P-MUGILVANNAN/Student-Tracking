@@ -298,7 +298,7 @@ export default function StudentView() {
                         </div>
                         <button
                           className="btn btn-sm btn-outline-info"
-                          onClick={() => navigate(`/admin/assessment/${submission.assessmentId._id}`)}
+                          onClick={() => navigate(`/admin/assessment/${submission.assessmentId._id}/${id}`)}
                         >
                           <i className="bi bi-eye me-1"></i> View Assessment
                         </button>

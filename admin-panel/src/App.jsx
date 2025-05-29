@@ -35,7 +35,7 @@ function AdminLayout() {
           <Route path="/add-assessment/:courseId" element={<AddAssessment />} />
           <Route path="/edit-course/:id" element={<EditCourse />} />
           <Route path="/course/:courseId" element={<CourseView />} />
-          <Route path="/assessment/:id" element={<AssessmentView />} />
+          <Route path="/assessment/:id/:studentId" element={<AssessmentView />} />
           <Route path="/add-syllabus" element={<AddSyllabus />} />
           <Route path="/attendance" element={<AttendancePage />} />
           <Route path="/add-project/:courseId" element={<AddProject />} />

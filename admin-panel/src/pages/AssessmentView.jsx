@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 export default function AssessmentView() {
-  const { id } = useParams();
+  const { id, studentId } = useParams();
   const navigate = useNavigate();
   const [assessment, setAssessment] = useState(null);
   const [submission, setSubmission] = useState(null);
@@ -13,50 +13,77 @@ export default function AssessmentView() {
   const [totalQuestions, setTotalQuestions] = useState(0);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [assessmentRes, submissionRes] = await Promise.all([
-          axios.get(`https://student-tracking-e3tk.onrender.com/api/assessment/${id}`, {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
-          }),
-          axios.get(`https://student-tracking-e3tk.onrender.com/api/assessment/${id}/submissions`, {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
-          })
-        ]);
+  const fetchData = async () => {
+    try {
+      const [assessmentRes, submissionRes] = await Promise.all([
+        axios.get(`https://student-tracking-e3tk.onrender.com/api/assessment/${id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }),
+        axios.get(`https://student-tracking-e3tk.onrender.com/api/assessment/${id}/submissions`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        })
+      ]);
 
-        setAssessment(assessmentRes.data);
-        setSubmission(submissionRes.data[0]); // Assuming we take the first submission
+      setAssessment(assessmentRes.data);
+      
+      // Debug logs
+      console.log('All submissions:', submissionRes.data);
+      console.log('Looking for studentId:', studentId);
+
+      // Find the student's submission - properly access nested studentId._id
+      const studentSubmission = submissionRes.data.find(sub => 
+        sub.studentId._id.toString() === studentId.toString()
+      );
+
+      console.log('Found submission:', studentSubmission);
+      
+      setSubmission(studentSubmission || null);
+
+      // Calculate score if submission exists
+      if (studentSubmission) {
+        console.log('Calculating score for submission:', studentSubmission);
         
-        // Calculate score if submission exists
-        if (submissionRes.data[0]) {
-          const correctAnswers = assessmentRes.data.questions.filter(q => {
-            const studentAnswer = submissionRes.data[0].answers.find(a => 
-              a.questionId.toString() === q._id.toString()
-            );
-            return studentAnswer?.selectedAnswer === q.correctAnswer;
-          }).length;
+        const correctAnswers = assessmentRes.data.questions.filter(q => {
+          const studentAnswer = studentSubmission.answers.find(a => 
+            a.questionId.toString() === q._id.toString()
+          );
           
-          setScore(correctAnswers);
-          setTotalQuestions(assessmentRes.data.questions.length);
-        }
-
-        setLoading(false);
-      } catch (err) {
-        console.error(err);
-        setLoading(false);
+          console.log(`Question ${q._id}:`, {
+            correctAnswer: q.correctAnswer,
+            studentAnswer: studentAnswer?.selectedAnswer,
+            isCorrect: studentAnswer?.selectedAnswer === q.correctAnswer
+          });
+          
+          return studentAnswer?.selectedAnswer === q.correctAnswer;
+        }).length;
+        
+        console.log('Correct answers:', correctAnswers);
+        
+        setScore(correctAnswers);
+        setTotalQuestions(assessmentRes.data.questions.length);
+      } else {
+        console.log('No submission found for this student');
+        setScore(0);
+        setTotalQuestions(assessmentRes.data.questions.length);
       }
-    };
 
-    fetchData();
-  }, [id]);
+      setLoading(false);
+    } catch (err) {
+      console.error('Error fetching data:', err);
+      setLoading(false);
+    }
+  };
+
+  fetchData();
+}, [id, studentId]);
 
   if (loading) {
     return (
-      <div className="d-flex justify-content-center align-items-center" style={{ 
+      <div className="d-flex justify-content-center align-items-center" style={{
         height: '100vh',
         background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)'
       }}>
@@ -69,7 +96,7 @@ export default function AssessmentView() {
 
   if (!assessment) {
     return (
-      <div className="d-flex justify-content-center align-items-center" style={{ 
+      <div className="d-flex justify-content-center align-items-center" style={{
         height: '100vh',
         background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)'
       }}>
@@ -100,7 +127,7 @@ export default function AssessmentView() {
                 <i className="bi bi-clipboard-data me-2"></i>
                 {assessment.topic}
               </h3>
-              <button 
+              <button
                 className="btn btn-sm btn-outline-light"
                 onClick={() => navigate(-1)}
               >
@@ -129,8 +156,8 @@ export default function AssessmentView() {
                     </div>
                     <div>
                       <h1 className="text-info">
-                        {score === totalQuestions ? '🎉' : 
-                         score >= totalQuestions * 0.7 ? '👍' : '😕'}
+                        {score === totalQuestions ? '🎉' :
+                          score >= totalQuestions * 0.7 ? '👍' : '😕'}
                       </h1>
                       <small className="text-white-50">Performance</small>
                     </div>
@@ -151,32 +178,32 @@ export default function AssessmentView() {
                   const studentAnswer = submission?.answers?.find(
                     a => a.questionId.toString() === question._id.toString()
                   )?.selectedAnswer || 'Not answered';
-                  
+
                   const isCorrect = studentAnswer === question.correctAnswer;
-                  
+
                   return (
                     <div key={i} className="accordion-item mb-3 border-0" style={{
                       background: 'rgba(255,255,255,0.05)',
                       borderRadius: '10px'
                     }}>
                       <h2 className="accordion-header">
-                        <button 
-                          className="accordion-button collapsed bg-transparent text-white" 
-                          type="button" 
-                          data-bs-toggle="collapse" 
+                        <button
+                          className="accordion-button collapsed bg-transparent text-white"
+                          type="button"
+                          data-bs-toggle="collapse"
                           data-bs-target={`#question-${i}`}
                           style={{ borderRadius: '10px' }}
                         >
-                          <span className="me-2">Q{i + 1}.</span> 
+                          <span className="me-2">Q{i + 1}.</span>
                           {question.questionText}
                           <span className={`ms-2 badge ${isCorrect ? 'bg-success' : 'bg-danger'}`}>
                             {isCorrect ? 'Correct' : 'Incorrect'}
                           </span>
                         </button>
                       </h2>
-                      <div 
-                        id={`question-${i}`} 
-                        className="accordion-collapse collapse" 
+                      <div
+                        id={`question-${i}`}
+                        className="accordion-collapse collapse"
                         data-bs-parent="#questionsAccordion"
                       >
                         <div className="accordion-body">
@@ -208,8 +235,8 @@ export default function AssessmentView() {
                               </h6>
                               <ul className="list-group">
                                 {question.options.map((option, optIndex) => (
-                                  <li 
-                                    key={optIndex} 
+                                  <li
+                                    key={optIndex}
                                     className={`list-group-item ${option === question.correctAnswer ? 'list-group-item-success' : ''}`}
                                   >
                                     {option}

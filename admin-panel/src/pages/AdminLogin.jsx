@@ -26,11 +26,11 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="min-vh-100 d-flex align-items-center justify-content-center p-3" 
-         style={{background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'}}>
-      <div className="card p-4 shadow-lg border-0" style={{width: '100%', maxWidth: '400px'}}>
+    <div className="min-vh-100 d-flex align-items-center justify-content-center p-3"
+      style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
+      <div className="card p-4 shadow-lg border-0" style={{ width: '100%', maxWidth: '400px' }}>
         <div className="text-center mb-4">
-          <h3 className="text-primary fw-bold">Trainer Login</h3>
+          <img src="https://fiit.co.in/wp-content/uploads/2024/10/fiit-logo.png" alt="" className="img-fluid" />
           <div className="mt-2" style={{
             height: '4px',
             width: '60px',
@@ -38,38 +38,46 @@ export default function AdminLogin() {
             margin: '0 auto',
             borderRadius: '2px'
           }}></div>
+          <h3 className="text-primary fw-bold">Trainer Login</h3>
+          <div className="mt-2" style={{
+            height: '4px',
+            width: '60px',
+            background: 'linear-gradient(to right, #1a2980, #26d0ce)',
+            margin: '0 auto',
+            borderRadius: '2px'
+          }}></div>
         </div>
-        
+
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <label className="form-label fw-semibold text-secondary">Email</label>
-            <input 
-              type="email" 
-              className="form-control py-2" 
+            <input
+              type="email"
+              className="form-control py-2"
               placeholder='Enter your email'
-              value={email} 
-              onChange={e => setEmail(e.target.value)} 
-              required 
-              style={{borderRadius: '8px', border: '1px solid #ced4da'}}
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              required
+              style={{ borderRadius: '8px', border: '1px solid #ced4da' }}
             />
           </div>
-          
+
           <div className="mb-4">
             <label className="form-label fw-semibold text-secondary">Password</label>
-            <input 
-              type="password" 
-              className="form-control py-2" 
+            <input
+              type="password"
+              className="form-control py-2"
               placeholder='Enter your password'
-              value={password} 
-              onChange={e => setPassword(e.target.value)} 
-              required 
-              style={{borderRadius: '8px', border: '1px solid #ced4da'}}
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              required
+              style={{ borderRadius: '8px', border: '1px solid #ced4da' }}
             />
           </div>
-          
-          <button 
-            className="btn w-100 py-2 text-white fw-bold border-0" 
-            type="submit" 
+
+          <button
+            className="btn w-100 py-2 text-white fw-bold border-0"
+            type="submit"
             disabled={loading}
             style={{
               borderRadius: '8px',

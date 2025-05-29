@@ -28,6 +28,14 @@ export default function StudentLogin() {
          style={{background: 'linear-gradient(135deg, #1a2980 0%, #26d0ce 100%)'}}>
       <div className="card p-4 shadow-lg border-0" style={{width: '100%', maxWidth: '400px'}}>
         <div className="text-center mb-4">
+          <img src="https://fiit.co.in/wp-content/uploads/2024/10/fiit-logo.png" alt="" className="img-fluid" />
+          <div className="mt-2" style={{
+            height: '4px',
+            width: '60px',
+            background: 'linear-gradient(to right, #667eea, #764ba2)',
+            margin: '0 auto',
+            borderRadius: '2px'
+          }}></div>
           <h3 className="text-primary fw-bold">Student Login</h3>
           <div className="mt-2" style={{
             height: '4px',
