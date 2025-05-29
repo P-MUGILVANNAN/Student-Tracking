@@ -6,7 +6,8 @@ const {
   getAssessmentById,
   submitAssessment,
   getSubmissionsByAssessment,
-  getSubmissionsByCourse
+  getSubmissionsByCourse,
+  getSubmissionsByStudentId
 } = require('../controller/AssessmentController');
 
 const authenticateUser = require('../middleware/authenticateUser');
@@ -59,6 +60,8 @@ router.get(
   authorizeRoles('admin','student'),
   getSubmissionsByCourse
 );
+
+router.get('/submissions/student/:studentId', getSubmissionsByStudentId);
 
 
 module.exports = router;

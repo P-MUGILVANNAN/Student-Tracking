@@ -133,6 +133,28 @@ exports.submitAssessment = async (req, res) => {
   }
 };
 
+// Get submissions by student ID
+exports.getSubmissionsByStudentId = async (req, res) => {
+  try {
+    const { studentId } = req.params;
+
+    // Find all submissions for the given student
+    const submissions = await StudentSubmission.find({ studentId })
+      .populate('assessmentId', 'topic courseId') // Include basic assessment info
+      .populate('studentId', 'name email');       // Optionally include student info
+
+    if (!submissions || submissions.length === 0) {
+      return res.status(404).json({ error: 'No submissions found for this student' });
+    }
+
+    res.json(submissions);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to fetch submissions for the student' });
+  }
+};
+
+
 
 
 // Get submissions by assessment ID
