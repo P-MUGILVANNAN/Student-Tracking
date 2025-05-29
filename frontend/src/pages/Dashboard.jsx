@@ -143,7 +143,7 @@ const Dashboard = () => {
     const fetchAssessmentData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/submissions/student/${studentId}`,
+          `https://student-tracking-e3tk.onrender.com/api/submissions/student/${studentId}`,
           {
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
           }
