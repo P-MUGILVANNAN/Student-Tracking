@@ -9,6 +9,7 @@ import './App.css';
 import Dashboard from './pages/Dashboard';
 import AssessmentPage from './pages/AssessmentPage';
 import ProjectPage from './pages/ProjectPage';
+import Footer from './components/Footer';
 
 function Layout({ children }) {
   const location = useLocation();
@@ -46,6 +47,7 @@ function App() {
           <Route path="/student/project/:projectId" element={<ProjectPage />} />
         </Routes>
       </Layout>
+      <Footer />
     </Router>
   );
 }

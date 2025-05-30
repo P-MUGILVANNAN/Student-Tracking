@@ -18,6 +18,7 @@ import AssessmentView from './pages/AssessmentView';
 import AddSyllabus from './pages/AddSyllabus';
 import AddProject from './pages/AddProject';
 import AttendancePage from './pages/AttendancePage';
+import Footer from './components/Footer';
 
 function AdminLayout() {
   return (
@@ -40,6 +41,7 @@ function AdminLayout() {
           <Route path="/attendance" element={<AttendancePage />} />
           <Route path="/add-project/:courseId" element={<AddProject />} />
         </Routes>
+        <Footer />
       </div>
     </div>
   );

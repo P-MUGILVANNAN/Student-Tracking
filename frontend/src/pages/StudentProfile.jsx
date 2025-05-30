@@ -204,46 +204,6 @@ export default function StudentProfile() {
                 </button>
               </div>
             </div>
-
-            {/* Progress Card */}
-            <div className="card shadow-sm mt-4">
-              <div className="card-header bg-white">
-                <h3 className="card-title">
-                  <i className="bi bi-graph-up-arrow text-success me-2"></i>
-                  Learning Progress
-                </h3>
-              </div>
-              <div className="card-body">
-                <div className="mb-3">
-                  <h6 className="d-flex justify-content-between">
-                    <span>Courses Completed</span>
-                    <span className="badge bg-success rounded-pill">3/10</span>
-                  </h6>
-                  <div className="progress" style={{ height: '10px' }}>
-                    <div
-                      className="progress-bar bg-success"
-                      role="progressbar"
-                      style={{ width: '30%' }}
-                      aria-valuenow="30"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                    ></div>
-                  </div>
-                </div>
-                <div className="mb-3">
-                  <h6 className="d-flex justify-content-between">
-                    <span>Certificates Earned</span>
-                    <span className="badge bg-info rounded-pill">2</span>
-                  </h6>
-                </div>
-                <div className="mb-0">
-                  <h6 className="d-flex justify-content-between">
-                    <span>Learning Streak</span>
-                    <span className="badge bg-warning text-dark rounded-pill">5 days</span>
-                  </h6>
-                </div>
-              </div>
-            </div>
           </div>
 
           {/* Right Content - Courses & Activity */}
