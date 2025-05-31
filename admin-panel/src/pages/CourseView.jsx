@@ -13,6 +13,8 @@ const CourseView = () => {
     const [showViewModal, setShowViewModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
     const [selectedProject, setSelectedProject] = useState(null);
+    const [selectedContent, setSelectedContent] = useState(null);
+    const [showContentModal, setShowContentModal] = useState(false);
     const [editFormData, setEditFormData] = useState({
         title: '',
         description: '',
@@ -77,6 +79,11 @@ const CourseView = () => {
             category: project.category
         });
         setShowEditModal(true);
+    };
+
+    const handleViewContent = (content) => {
+        setSelectedContent(content);
+        setShowContentModal(true);
     };
 
     const handleEditChange = (e) => {
@@ -297,29 +304,32 @@ const CourseView = () => {
                                                 }}>
                                                     <div className="card-body">
                                                         <h6 className="card-title">{content.title}</h6>
-                                                        {content.fileType === 'pdf' ? (
-                                                            <div className="ratio ratio-16x9 mb-3">
-                                                                <iframe
-                                                                    src={content.fileUrl}
-                                                                    title={content.title}
-                                                                    style={{ borderRadius: '8px' }}
-                                                                />
-                                                            </div>
-                                                        ) : (
-                                                            <div className="d-flex flex-column align-items-center">
-                                                                <i className="bi bi-file-earmark-text fs-1 text-muted mb-2"></i>
-                                                                <p className="text-muted small">This content is a {content.fileType.toUpperCase()} file</p>
-                                                                <a
-                                                                    href={content.fileUrl}
-                                                                    target="_blank"
-                                                                    rel="noopener noreferrer"
-                                                                    className="btn btn-sm btn-primary"
-                                                                    style={{ borderRadius: '20px' }}
-                                                                >
-                                                                    <i className="bi bi-download me-1"></i> Download
-                                                                </a>
-                                                            </div>
-                                                        )}
+                                                        <div className="d-flex text-muted small mb-3">
+                                                            <span className="me-3">
+                                                                <i className={`bi bi-filetype-${content.fileType === 'pdf' ? 'pdf' : 'text'}`}></i>
+                                                                {content.fileType.toUpperCase()}
+                                                            </span>
+                                                        </div>
+
+                                                        <div className="d-flex justify-content-center gap-2">
+                                                            <button
+                                                                className="btn btn-sm btn-primary"
+                                                                onClick={() => handleViewContent(content)}
+                                                                style={{ borderRadius: '20px' }}
+                                                            >
+                                                                <i className="bi bi-eye me-1"></i> View
+                                                            </button>
+                                                            <a
+                                                                href={content.fileUrl}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className="btn btn-sm btn-success"
+                                                                style={{ borderRadius: '20px' }}
+                                                                download
+                                                            >
+                                                                <i className="bi bi-download me-1"></i> Download
+                                                            </a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -533,6 +543,89 @@ const CourseView = () => {
                         </div>
                     </div>
                 </div>
+
+                {/* View Content Modal */}
+                <div className={`modal fade ${showContentModal ? 'show' : ''}`} style={{ display: showContentModal ? 'block' : 'none' }}>
+                    <div className="modal-dialog modal-lg">
+                        <div className="modal-content border-0" style={{
+                            background: 'linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%)',
+                            borderRadius: '15px'
+                        }}>
+                            <div className="modal-header border-0" style={{
+                                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                                color: 'white',
+                                borderTopLeftRadius: '15px',
+                                borderTopRightRadius: '15px'
+                            }}>
+                                <h5 className="modal-title d-flex align-items-center">
+                                    <i className="bi bi-file-earmark-text me-2"></i>
+                                    {selectedContent?.title}
+                                </h5>
+                                <button
+                                    type="button"
+                                    className="btn-close btn-close-white"
+                                    onClick={() => setShowContentModal(false)}
+                                ></button>
+                            </div>
+                            <div className="modal-body">
+                                {selectedContent && (
+                                    <div>
+                                        <div className="d-flex justify-content-between align-items-center mb-4">
+                                            <div>
+                                                <span className="badge bg-primary me-2">
+                                                    <i className="bi bi-filetype-${selectedContent.fileType === 'pdf' ? 'pdf' : 'text'} me-1"></i>
+                                                    {selectedContent.fileType.toUpperCase()}
+                                                </span>
+                                            </div>
+                                            <a
+                                                href={selectedContent.fileUrl}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="btn btn-sm btn-success"
+                                                style={{ borderRadius: '20px' }}
+                                                download
+                                            >
+                                                <i className="bi bi-download me-1"></i> Download
+                                            </a>
+                                        </div>
+
+                                        {selectedContent.fileType === 'pdf' ? (
+                                            <div className="ratio ratio-16x9">
+                                                <iframe
+                                                    src={selectedContent.fileUrl}
+                                                    title={selectedContent.title}
+                                                    style={{ borderRadius: '8px', border: '1px solid #dee2e6' }}
+                                                />
+                                            </div>
+                                        ) : (
+                                            <div className="text-center py-5">
+                                                <i className="bi bi-file-earmark-text fs-1 text-muted mb-3"></i>
+                                                <p className="text-muted">This file format cannot be previewed. Please download to view.</p>
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
+                            </div>
+                            <div className="modal-footer border-0">
+                                <button
+                                    type="button"
+                                    className="btn btn-secondary"
+                                    onClick={() => setShowContentModal(false)}
+                                    style={{
+                                        background: 'linear-gradient(135deg, #a8c0ff 0%, #3f2b96 100%)',
+                                        border: 'none',
+                                        borderRadius: '8px',
+                                        color: 'white'
+                                    }}
+                                >
+                                    <i className="bi bi-x-circle me-1"></i> Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {showContentModal && <div className="modal-backdrop fade show"></div>}
+
                 {/* View Project Modal */}
                 <div className={`modal fade ${showViewModal ? 'show' : ''}`} style={{ display: showViewModal ? 'block' : 'none' }}>
                     <div className="modal-dialog modal-lg">
