@@ -8,6 +8,8 @@ export default function Students() {
   const [loading, setLoading] = useState(true);
   const [expandedStudent, setExpandedStudent] = useState(null);
   const [attendanceData, setAttendanceData] = useState({});
+  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
+  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -62,21 +64,48 @@ export default function Students() {
       student.email.toLowerCase().includes(search.toLowerCase())
   );
 
-  // Generate dates for current month (May 2025)
+  // Generate dates for current month and year
   const generateMonthDates = () => {
-    const year = 2025;
-    const month = 4; // May (0-indexed)
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
     const dates = [];
     
     for (let day = 1; day <= daysInMonth; day++) {
-      dates.push(new Date(year, month, day));
+      dates.push(new Date(currentYear, currentMonth, day));
     }
     
     return dates;
   };
 
   const monthDates = generateMonthDates();
+
+  const monthNames = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+
+  const handlePrevMonth = () => {
+    if (currentMonth === 0) {
+      setCurrentMonth(11);
+      setCurrentYear(currentYear - 1);
+    } else {
+      setCurrentMonth(currentMonth - 1);
+    }
+  };
+
+  const handleNextMonth = () => {
+    if (currentMonth === 11) {
+      setCurrentMonth(0);
+      setCurrentYear(currentYear + 1);
+    } else {
+      setCurrentMonth(currentMonth + 1);
+    }
+  };
+
+  const handleCurrentMonth = () => {
+    const now = new Date();
+    setCurrentMonth(now.getMonth());
+    setCurrentYear(now.getFullYear());
+  };
 
   if (loading) {
     return (
@@ -231,11 +260,29 @@ export default function Students() {
                 {/* Attendance Card - Separate from Student Card */}
                 {expandedStudent === student._id && (
                   <div className="card mt-3 border-0 shadow-sm">
-                    <div className="card-header bg-light">
+                    <div className="card-header bg-light d-flex justify-content-between align-items-center">
+                      <button 
+                        className="btn btn-sm btn-outline-primary"
+                        onClick={handlePrevMonth}
+                      >
+                        <i className="bi bi-chevron-left"></i>
+                      </button>
                       <h5 className="mb-0">
                         <i className="bi bi-calendar-check me-2"></i>
-                        Attendance Records - May 2025
+                        Attendance Records - {monthNames[currentMonth]} {currentYear}
+                        <button 
+                          className="btn btn-sm btn-outline-info ms-2"
+                          onClick={handleCurrentMonth}
+                        >
+                          Current Month
+                        </button>
                       </h5>
+                      <button 
+                        className="btn btn-sm btn-outline-primary"
+                        onClick={handleNextMonth}
+                      >
+                        <i className="bi bi-chevron-right"></i>
+                      </button>
                     </div>
                     <div className="card-body p-0">
                       <div className="table-responsive">
