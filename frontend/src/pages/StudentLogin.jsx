@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import logo from '../assets/fiit-logo.png';
 
 export default function StudentLogin() {
   const [email, setEmail] = useState('');
@@ -28,7 +29,7 @@ export default function StudentLogin() {
          style={{background: 'linear-gradient(135deg, #1a2980 0%, #26d0ce 100%)'}}>
       <div className="card p-4 shadow-lg border-0" style={{width: '100%', maxWidth: '400px'}}>
         <div className="text-center mb-4">
-          <img src="https://fiit.co.in/wp-content/uploads/2024/10/fiit-logo.png" alt="" className="img-fluid" />
+          <img src={logo} alt="" className="img-fluid" />
           <div className="mt-2" style={{
             height: '4px',
             width: '60px',

@@ -1,4 +1,5 @@
 import React from 'react';
+import logo from '../assets/fiit-logo.png';
 
 function Footer() {
   return (
@@ -11,7 +12,7 @@ function Footer() {
           <div className="col-md-6 mb-3 mb-md-0">
             <div className="d-flex align-items-center">
               <img 
-                src="https://fiit.co.in/wp-content/uploads/2024/10/fiit-logo.png" 
+                src={logo} 
                 alt="FIIT Logo" 
                 className="img-fluid me-2" 
                 style={{

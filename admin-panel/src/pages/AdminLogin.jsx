@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import logo from '../assets/fiit-logo.png';
 
 export default function AdminLogin() {
   const [email, setEmail] = useState('');
@@ -30,7 +31,7 @@ export default function AdminLogin() {
       style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
       <div className="card p-4 shadow-lg border-0" style={{ width: '100%', maxWidth: '400px' }}>
         <div className="text-center mb-4">
-          <img src="https://fiit.co.in/wp-content/uploads/2024/10/fiit-logo.png" alt="" className="img-fluid" />
+          <img src={logo} alt="" className="img-fluid" />
           <div className="mt-2" style={{
             height: '4px',
             width: '60px',
