@@ -19,11 +19,13 @@ import AddSyllabus from './pages/AddSyllabus';
 import AddProject from './pages/AddProject';
 import AttendancePage from './pages/AttendancePage';
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
 
 function AdminLayout() {
   return (
     <div className="d-flex mt-4">
       <Navbar />
+      <ScrollToTop />
       <div className="flex-grow-1 mt-4 p-4">
         <Routes>
           <Route path="/" element={<Dashboard />} />

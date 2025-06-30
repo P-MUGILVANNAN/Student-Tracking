@@ -10,6 +10,7 @@ import Dashboard from './pages/Dashboard';
 import AssessmentPage from './pages/AssessmentPage';
 import ProjectPage from './pages/ProjectPage';
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
 
 function Layout({ children }) {
   const location = useLocation();
@@ -37,6 +38,7 @@ function App() {
   return (
     <Router>
       <Layout>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<StudentLogin />} />
           <Route path="/student/profile" element={<StudentProfile />} />
