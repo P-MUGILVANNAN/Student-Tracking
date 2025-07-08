@@ -22,7 +22,20 @@ mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('DB connected'))
     .catch(err => console.log(err));
 
-app.use(cors());
+const allowedOrigins = [
+    "https://trainer-snowy.vercel.app",  // frontend 1 (e.g., user)
+    "https://student-blush.vercel.app",                 // frontend 2 (e.g., admin)
+];
+app.use(cors({
+    origin: function (origin, callback) {
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.includes(origin)) {
+            return callback(null, true);
+        } else {
+            return callback(new Error("Not allowed by CORS"));
+        }
+    }
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
