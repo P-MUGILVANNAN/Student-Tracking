@@ -27,7 +27,6 @@ export default function StudentProfile() {
       .then(res => {
         setProfile(res.data);
         setLoading(false);
-        // Initialize edit form with current profile data
         setEditFormData({
           name: res.data.name,
           email: res.data.email,
@@ -46,7 +45,6 @@ export default function StudentProfile() {
       ...editFormData,
       [name]: value
     });
-    // Clear error when user types
     if (editErrors[name]) {
       setEditErrors(prev => ({ ...prev, [name]: '' }));
     }
@@ -54,26 +52,23 @@ export default function StudentProfile() {
 
   const validateEditForm = () => {
     const errors = {};
-
     if (!editFormData.name.trim()) errors.name = 'Name is required';
     if (!editFormData.email.trim()) {
       errors.email = 'Email is required';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(editFormData.email)) {
       errors.email = 'Invalid email format';
     }
-
     setEditErrors(errors);
     return Object.keys(errors).length === 0;
   };
 
   const handleEditSubmit = async (e) => {
     e.preventDefault();
-
     if (!validateEditForm()) return;
 
     try {
       setEditMessage('');
-      const response = await axios.put(
+      await axios.put(
         'https://student-tracking-e3tk.onrender.com/api/auth/profile',
         {
           name: editFormData.name,
@@ -88,7 +83,6 @@ export default function StudentProfile() {
       );
 
       setEditMessage('Profile updated successfully!');
-      // Update the profile in state
       setProfile(prev => ({
         ...prev,
         name: editFormData.name,
@@ -96,7 +90,6 @@ export default function StudentProfile() {
         phone: editFormData.phone
       }));
 
-      // Close modal after 1.5 seconds
       setTimeout(() => {
         setShowEditModal(false);
       }, 1500);
@@ -220,49 +213,63 @@ export default function StudentProfile() {
                 {profile?.courses?.length > 0 ? (
                   <div className="row row-cols-1 row-cols-md-2 g-4">
                     {profile.courses.map((course, idx) => (
-                      <div key={idx} className="col">
-                        <div className="card h-100 border-0 shadow-sm hover-shadow transition-all">
-                          <div className="card-body">
-                            <div className="d-flex align-items-start mb-3">
-                              <div className="bg-primary bg-opacity-10 p-3 rounded me-3">
-                                <i className="bi bi-book text-primary fs-4"></i>
+                      <div className="col-md-12" key={idx}>
+                        <div className="row g-3">
+                          {/* Course Info Card */}
+                          <div className="col-md-6">
+                            <div className="card h-100 border-0 shadow-sm">
+                              <div className="card-body">
+                                <div className="d-flex align-items-start mb-3">
+                                  <div className="bg-primary bg-opacity-10 p-3 rounded me-3">
+                                    <i className="bi bi-book text-primary fs-4"></i>
+                                  </div>
+                                  <div>
+                                    <h5 className="card-title mb-1">{course.title}</h5>
+                                    <p className="text-muted small mb-2">
+                                      <i className="bi bi-person-fill me-1"></i>
+                                      Instructor: {profile.trainerName || 'Instructor not specified'}
+                                    </p>
+                                  </div>
+                                </div>
+                                <span className="badge bg-light text-dark mb-3">
+                                  <i className="bi bi-clock-history me-1"></i>
+                                  {course.duration || 'N/A'}
+                                </span>
+                                <div className="mt-4">
+                                  <Link
+                                    to={`/student/course/${course._id}`}
+                                    className="btn btn-md btn-primary"
+                                  >
+                                    <i className="bi bi-arrow-right me-1"></i> Continue
+                                  </Link>
+                                </div>
                               </div>
-                              <div>
-                                <h5 className="card-title mb-1">{course.title}</h5>
-                                <p className="text-muted small mb-2">
-                                  <i className="bi bi-person-fill me-1"></i>
-                                  Instructor: {profile.trainerName || 'Instructor not specified'}
-                                </p>
-                              </div>
-                            </div>
-                            <div className="d-flex justify-content-between align-items-center mb-3">
-                              <span className="badge bg-light text-dark">
-                                <i className="bi bi-clock-history me-1"></i>
-                                {course.duration || 'N/A'}
-                              </span>
-                            </div>
-                            <div className="progress mb-3" style={{ height: '6px' }}>
-                              <div
-                                className="progress-bar"
-                                role="progressbar"
-                                style={{ width: `${course.progress || 0}%` }}
-                                aria-valuenow={course.progress || 0}
-                                aria-valuemin="0"
-                                aria-valuemax="100"
-                              ></div>
-                            </div>
-                            <div className="d-flex justify-content-between">
-                              <small className="text-muted">
-                                {course.progress || 0}% completed
-                              </small>
-                              <Link
-                                to={`/student/course/${course._id}`}
-                                className="btn btn-sm btn-primary"
-                              >
-                                <i className="bi bi-arrow-right me-1"></i> Continue
-                              </Link>
                             </div>
                           </div>
+
+                          {/* Course Link Card */}
+                          {course.courseUILink && (
+                            <div className="col-md-6">
+                              <div className="card h-100 border-0 shadow-sm text-center p-4">
+                                <div className="mb-3">
+                                  <i className="bi bi-link-45deg fs-1 text-primary"></i>
+                                </div>
+                                <h5 className="card-title">Learning Materials UI</h5>
+                                <p className="text-muted small mb-3">
+                                  Access the course UI directly from here.
+                                </p>
+                                <a
+                                  href={course.courseUILink}
+                                  target="_self"
+                                  rel="noopener noreferrer"
+                                  className="btn btn-outline-primary"
+                                >
+                                  <i className="bi bi-box-arrow-up-right me-2"></i>
+                                  Open Course
+                                </a>
+                              </div>
+                            </div>
+                          )}
                         </div>
                       </div>
                     ))}

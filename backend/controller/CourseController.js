@@ -12,11 +12,12 @@ exports.getCourses = async (req, res) => {
 
 // Add a new course
 exports.createCourse = async (req, res) => {
-  const { title, duration } = req.body;
+  const { title, duration, courseUILink } = req.body;
   try {
     const newCourse = new Course({
       title,
       duration,
+      courseUILink,
       createdBy: req.user._id
     });
     await newCourse.save();
@@ -29,11 +30,11 @@ exports.createCourse = async (req, res) => {
 // Update a course (only by creator)
 exports.updateCourse = async (req, res) => {
   const { id } = req.params;
-  const { title, duration } = req.body;
+  const { title, duration, courseUILink } = req.body;
   try {
     const updated = await Course.findOneAndUpdate(
       { _id: id, createdBy: req.user._id },
-      { title, duration },
+      { title, duration, courseUILink },
       { new: true }
     );
     if (!updated) return res.status(404).json({ message: 'Course not found or not owned by you' });

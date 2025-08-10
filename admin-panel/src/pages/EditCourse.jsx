@@ -5,7 +5,7 @@ import axios from 'axios';
 const EditCourse = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [course, setCourse] = useState({ title: '', duration: '' });
+  const [course, setCourse] = useState({ title: '', duration: '', courseUILink: '' }); // added courseUILink
 
   useEffect(() => {
     axios.get(`https://student-tracking-e3tk.onrender.com/api/courses/${id}`, {
@@ -34,7 +34,7 @@ const EditCourse = () => {
     })
       .then(() => {
         alert('Course updated successfully!');
-        navigate('/admin'); // or navigate(-1) to go back
+        navigate('/admin');
       })
       .catch(err => {
         console.error('Error updating course:', err);
@@ -53,6 +53,7 @@ const EditCourse = () => {
       }}>
         <h3 className="mb-4">✏️ Edit Course</h3>
         <form onSubmit={handleSubmit}>
+          {/* Title */}
           <div className="mb-3">
             <label className="form-label">Course Title</label>
             <input
@@ -64,6 +65,8 @@ const EditCourse = () => {
               required
             />
           </div>
+
+          {/* Duration */}
           <div className="mb-3">
             <label className="form-label">Duration</label>
             <input
@@ -75,6 +78,20 @@ const EditCourse = () => {
               required
             />
           </div>
+
+          {/* Course UI Link */}
+          <div className="mb-3">
+            <label className="form-label">Course UI Link</label>
+            <input
+              type="url"
+              name="courseUILink"
+              className="form-control"
+              placeholder="https://example.com/course-ui"
+              value={course.courseUILink}
+              onChange={handleChange}
+            />
+          </div>
+
           <div className="d-flex justify-content-between">
             <button type="submit" className="btn btn-light">
               💾 Save Changes

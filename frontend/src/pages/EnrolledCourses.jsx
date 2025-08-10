@@ -62,75 +62,104 @@ export default function EnrolledCourses() {
         </div>
 
         {/* Courses Grid */}
-        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-          {courses.length > 0 ? (
-            courses.map((course, index) => (
-              <div key={index} className="col">
-                <div className="card h-100 border-0 shadow-sm hover-shadow transition-all">
-                  <div className="card-header bg-white border-bottom-0 pb-0">
-                    <div className="d-flex align-items-center">
-                      <div className="bg-primary bg-opacity-10 p-3 rounded-circle me-3">
-                        <i className="bi bi-book text-primary fs-4"></i>
+        {courses.length > 0 ? (
+          <div className="row row-cols-1 row-cols-md-2 row-cols-lg-2 g-4">
+            {courses.map((course, index) => (
+              <div className="col-12 col-md-6" key={index}>
+                <div className="row g-4">
+                  {/* Course Info Card */}
+                  <div className="col-12 col-lg-6">
+                    <div className="card h-100 border-0 shadow-sm hover-shadow transition-all">
+                      <div className="card-header bg-white border-bottom-0 pb-0">
+                        <div className="d-flex align-items-center">
+                          <div className="bg-primary bg-opacity-10 p-3 rounded-circle me-3">
+                            <i className="bi bi-book text-primary fs-4"></i>
+                          </div>
+                          <div>
+                            <h5 className="card-title mb-0">{course.title}</h5>
+                            <small className="text-muted">
+                              {profile.trainerName || 'No instructor specified'}
+                            </small>
+                          </div>
+                        </div>
                       </div>
-                      <div>
-                        <h5 className="card-title mb-0">{course.title}</h5>
-                        <small className="text-muted">
-                          {profile.trainerName || 'No instructor specified'}
-                        </small>
+
+                      <div className="card-body">
+                        <div className="mb-3">
+                          <div className="d-flex align-items-center mb-2">
+                            <i className="bi bi-clock-history text-muted me-2"></i>
+                            <small className="text-muted">
+                              {course.duration || 'Duration not specified'}
+                            </small>
+                          </div>
+                          <div className="d-flex align-items-center mb-3">
+                            <i className="bi bi-calendar-check text-muted me-2"></i>
+                            <small className="text-muted">
+                              Start Date: {course.createdAt ? new Date(course.createdAt).toLocaleDateString() : 'No start date'}
+                            </small>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="card-footer bg-white border-top-0 pt-0">
+                        <Link
+                          to={`/student/course/${course._id}`}
+                          className="btn btn-primary w-100"
+                        >
+                          <i className="bi bi-arrow-right-circle me-2"></i>
+                          Continue Learning
+                        </Link>
                       </div>
                     </div>
                   </div>
 
-                  <div className="card-body">
-                    <div className="mb-3">
-                      <div className="d-flex align-items-center mb-2">
-                        <i className="bi bi-clock-history text-muted me-2"></i>
-                        <small className="text-muted">
-                          {course.duration || 'Duration not specified'}
-                        </small>
-                      </div>
-                      <div className="d-flex align-items-center mb-3">
-                        <i className="bi bi-calendar-check text-muted me-2"></i>
-                        <small className="text-muted">
-                          Start Date: {course.createdAt ? new Date(course.createdAt).toLocaleDateString() : 'No start date'}
-                        </small>
+                  {/* Course Link Card */}
+                  {course.courseUILink && (
+                    <div className="col-12 col-lg-6">
+                      <div className="card h-100 border-0 shadow-sm text-center p-4">
+                        <div className="mb-3">
+                          <i className="bi bi-link-45deg fs-1 text-primary"></i>
+                        </div>
+                        <h5 className="card-title">Learning Materials UI</h5>
+                        <p className="text-muted small mb-3">
+                          Access the course UI directly from here.
+                        </p>
+                        <a
+                          href={course.courseUILink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn btn-outline-primary"
+                        >
+                          <i className="bi bi-box-arrow-up-right me-2"></i>
+                          Open Course
+                        </a>
                       </div>
                     </div>
-                  </div>
-
-                  <div className="card-footer bg-white border-top-0 pt-0">
-                    <Link
-                      to={`/student/course/${course._id}`}
-                      className="btn btn-primary w-100"
-                    >
-                      <i className="bi bi-arrow-right-circle me-2"></i>
-                      Continue Learning
-                    </Link>
-                  </div>
+                  )}
                 </div>
               </div>
-            ))
-          ) : (
-            <div className="col-12">
-              <div className="card border-0 shadow-sm">
-                <div className="card-body text-center py-5">
-                  <div className="bg-light rounded-circle p-4 d-inline-block mb-3">
-                    <i className="bi bi-book text-muted" style={{ fontSize: '2rem' }}></i>
-                  </div>
-                  <h4 className="text-muted mb-3">No Courses Enrolled</h4>
-                  <p className="text-muted mb-4">
-                    You haven't enrolled in any courses yet. Browse our catalog to find interesting courses.
-                  </p>
-                  <Link to="/student/courses" className="btn btn-primary px-4">
-                    <i className="bi bi-search me-2"></i>
-                    Browse Courses
-                  </Link>
+            ))}
+          </div>
+        ) : (
+          <div className="col-12">
+            <div className="card border-0 shadow-sm">
+              <div className="card-body text-center py-5">
+                <div className="bg-light rounded-circle p-4 d-inline-block mb-3">
+                  <i className="bi bi-book text-muted" style={{ fontSize: '2rem' }}></i>
                 </div>
+                <h4 className="text-muted mb-3">No Courses Enrolled</h4>
+                <p className="text-muted mb-4">
+                  You haven't enrolled in any courses yet. Browse our catalog to find interesting courses.
+                </p>
+                <Link to="/student/courses" className="btn btn-primary px-4">
+                  <i className="bi bi-search me-2"></i>
+                  Browse Courses
+                </Link>
               </div>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
-    </div >
+    </div>
   );
 }

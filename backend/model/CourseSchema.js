@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const courseSchema = new mongoose.Schema({
   title: { type: String, required: true },
   duration: { type: String },
+  courseUILink: { type: String },
   syllabus: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Syllabus'

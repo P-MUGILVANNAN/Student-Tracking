@@ -5,7 +5,8 @@ import { useNavigate } from 'react-router-dom';
 export default function AddCourse() {
   const [course, setCourse] = useState({
     title: '',
-    duration: ''
+    duration: '',
+    courseUILink: '' // Added UI link field
   });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -62,6 +63,7 @@ export default function AddCourse() {
               
               <div className="card-body p-4">
                 <form onSubmit={handleSubmit}>
+                  {/* Title */}
                   <div className="mb-4">
                     <div className="form-floating">
                       <input
@@ -79,6 +81,7 @@ export default function AddCourse() {
                     </div>
                   </div>
 
+                  {/* Duration */}
                   <div className="mb-4">
                     <div className="form-floating">
                       <input
@@ -96,6 +99,24 @@ export default function AddCourse() {
                     </div>
                   </div>
 
+                  {/* Course UI Link */}
+                  <div className="mb-4">
+                    <div className="form-floating">
+                      <input
+                        type="url"
+                        className="form-control bg-transparent text-white"
+                        id="courseUILink"
+                        name="courseUILink"
+                        placeholder="Course UI Link"
+                        value={course.courseUILink}
+                        onChange={handleChange}
+                        style={{ borderRadius: '10px', borderColor: 'rgba(255, 255, 255, 0.2)' }}
+                      />
+                      <label htmlFor="courseUILink" className="text-white-50">Course UI Link (optional)</label>
+                    </div>
+                  </div>
+
+                  {/* Buttons */}
                   <div className="d-grid gap-2">
                     <button
                       type="submit"
