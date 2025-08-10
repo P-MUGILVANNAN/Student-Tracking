@@ -1,0 +1,13 @@
+/* Custom colors */
+.bg-purple { background-color: #6f42c1; }
+.bg-orange { background-color: #fd7e14; }
+.bg-green { background-color: #20c997; }
+.bg-blue { background-color: #0d6efd; }
+
+/* Simple hover effect */
+.card {
+  transition: box-shadow 0.2s ease;
+}
+.card:hover {
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3) !important;
+}
