@@ -13,7 +13,6 @@ import DjangoNotes from './pages/courses/DjangoNotes';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
-import ScrollToTopArrow from './components/ScrollToTopArrow';
 
 function App() {
   return (
@@ -32,7 +31,6 @@ function App() {
         <Route path='/courses/django' element={<DjangoNotes />} />
         <Route path='/courses/mysql' element={<MySqlNotes />} />
       </Routes>
-      <ScrollToTopArrow />
       <Footer />
     </BrowserRouter>
   );

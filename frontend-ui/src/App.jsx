@@ -10,7 +10,6 @@ import ReactNotes from './pages/courses/ReactNotes';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
-import ScrollToTopArrow from './components/ScrollToTopArrow';
 
 function App() {
   return (
@@ -26,7 +25,6 @@ function App() {
         <Route path='/courses/bootstrap' element={<BootstrapNotes />} />
         <Route path='/courses/react' element={<ReactNotes />} />
       </Routes>
-      <ScrollToTopArrow />
       <Footer />
     </BrowserRouter>
   );

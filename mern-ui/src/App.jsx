@@ -13,7 +13,6 @@ import MongoDBNotes from './pages/courses/MongoDBNotes';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
-import ScrollToTopArrow from './components/ScrollToTopArrow';
 
 function App() {
   return (
@@ -32,7 +31,6 @@ function App() {
         <Route path='/courses/expressjs' element={<ExpressJsNotes />} />
         <Route path='/courses/mongodb' element={<MongoDBNotes />} />
       </Routes>
-      <ScrollToTopArrow />
       <Footer />
     </BrowserRouter>
   );
