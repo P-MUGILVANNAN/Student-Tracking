@@ -15,7 +15,6 @@ import MySqlNotes from './pages/courses/MySqlNotes';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
-import ScrollToTopArrow from './components/ScrollToTopArrow';
 
 function App() {
   return (
@@ -36,7 +35,6 @@ function App() {
         <Route path='/courses/spring-boot' element={<SpringbootNotes />} />
         <Route path='/courses/mysql' element={<MySqlNotes />} />
       </Routes>
-      <ScrollToTopArrow />
       <Footer />
     </BrowserRouter>
   );
