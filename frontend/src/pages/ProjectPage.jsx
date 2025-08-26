@@ -124,6 +124,15 @@ const ProjectPage = () => {
               {project.description || 'No description provided.'}
             </div>
           </div>
+          <div className="mb-4">
+            <h5 className="text-primary">
+              <i className="bi bi-link me-2"></i>
+              Project Template Link
+            </h5>
+            <div className="border rounded p-3 bg-light">
+              {project.resources || 'No link provided.'}
+            </div>
+          </div>
 
           {project.requirements && (
             <div className="mb-4">
