@@ -130,7 +130,7 @@ const ProjectPage = () => {
               Project Template Link
             </h5>
             <div className="border rounded p-3 bg-light">
-              {project.resources || 'No link provided.'}
+              <a href={project.resources} target='_blank'>{project.resources || 'No link provided.'}</a>
             </div>
           </div>
 
